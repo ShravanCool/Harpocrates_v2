@@ -5,6 +5,7 @@ from struct import pack
 
 # private stuff, should not be hardcoded
 key = b'Key of length 16'
+iv = b'ivbSize8'
 
 # Encrypting Image
 def encrypt_image(file_name):
@@ -15,7 +16,7 @@ def encrypt_image(file_name):
     input_data = input_file.read()
     input_file.close()
 
-    cfb_cipher = Blowfish.new(key, Blowfish.MODE_CFB)
+    cfb_cipher = Blowfish.new(key, Blowfish.MODE_CFB, iv)
     enc_data = cfb_cipher.encrypt(input_data)
 
     enc_file = open(file_name + ".enc", 'wb')
@@ -30,7 +31,7 @@ def decrypt_image(file_name):
     enc_data2 = enc_file2.read()
     enc_file2.close()
 
-    cfb_decipher = Blowfish.new(key, Blowfish.MODE_CFB)
+    cfb_decipher = Blowfish.new(key, Blowfish.MODE_CFB, iv)
     plain_data = cfb_decipher.decrypt(enc_data2)
 
     image_stream = io.BytesIO(plain_data)
