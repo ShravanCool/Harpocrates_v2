@@ -23,6 +23,7 @@ def encrypt_image(file_name):
     enc_file.write(enc_data)
     enc_file.close()
 
+# Decrypting Image
 def decrypt_image(file_name):
 
     global key, iv
