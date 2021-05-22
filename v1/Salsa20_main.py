@@ -1,15 +1,30 @@
 import Salsa20
+import TtIED
+import time
 
 def main():
 
-    file_name = 'pic1.jpg'
-    print('Encrypting file...')
-    Salsa20.encrypt_image(file_name)
-    print('Encrypted...')
-    print('Decrypting...')
-    Salsa20.decrypt_image(file_name+'.enc')
-    print('Decrypted')
+    infile = 'message.txt'
+    img_file = 'output.png'
+    outfile = 'out_message.txt'
 
+    print('Encoding...')
+    start = time.time()
+    TtIED.encode(infile, img_file)
+    Salsa20.encrypt_image(img_file)
+    end = time.time()
+    print('Encrypting...')
+
+    print('Encryption time: ', end - start)
+
+    print('Decrypting...')
+    start = time.time()
+    Salsa20.decrypt_image(img_file + '.enc')
+    TtIED.decode(img_file, outfile)
+    end = time.time()
+    print('Decoding...')
+
+    print('Decryption time: ', end - start)
 
 main()
 
