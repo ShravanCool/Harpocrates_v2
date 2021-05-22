@@ -1,14 +1,31 @@
 import AES
+import TtIED
+import time
 
 def main():
 
-    file_name = 'pic1.jpg'
-    print('Encrypting file...')
-    AES.encrypt_image(file_name)
-    print('Encrypted...')
+    infile = 'message.txt'
+    img_file = 'output.png'
+    outfile = 'out_message.txt'
+
+    print('Encoding...')
+    start = time.time()
+    TtIED.encode(infile, img_file)
+    AES.encrypt_image(img_file)
+    end = time.time()
+    print('Encrypting...')
+
+    print('Encryption time: ', end - start)
+
     print('Decrypting...')
-    AES.decrypt_image(file_name+'.enc')
-    print('Decrypted')
+    start = time.time()
+    AES.decrypt_image(img_file + '.enc')
+    TtIED.decode(img_file, outfile)
+    end = time.time()
+    print('Decoding...')
+
+    print('Decryption time: ', end - start)
+
 
 
 main()
