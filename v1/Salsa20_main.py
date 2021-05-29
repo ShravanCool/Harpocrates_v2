@@ -1,6 +1,7 @@
 import Salsa20
 import TtIED
 import time
+import os, psutil
 
 def main():
 
@@ -8,23 +9,33 @@ def main():
     img_file = 'output.png'
     outfile = 'out_message.txt'
 
-    print('Encoding...')
+    # with open('message.txt') as S:
+        # print("Plaintext message:", S.read())
+
+    # print('Encoding...')
     start = time.time()
     TtIED.encode(infile, img_file)
     Salsa20.encrypt_image(img_file)
     end = time.time()
-    print('Encrypting...')
+    # print('Encrypting...')
 
-    print('Encryption time: ', end - start)
+    # print('Encryption time: ', (end - start) * 1000)
 
-    print('Decrypting...')
+    # print('Decrypting...')
     start = time.time()
     Salsa20.decrypt_image(img_file + '.enc')
     TtIED.decode(img_file, outfile)
     end = time.time()
-    print('Decoding...')
+    # print('Decoding...')
 
-    print('Decryption time: ', end - start)
+    # print('Decryption time: ', (end - start) * 1000)
+
+    # with open('out_message.txt') as S:
+        # print("Decrypted message:", S.read())
+
+    # time.sleep(10000)
+    process = psutil.Process(os.getpid())
+    print("Memory in MB:", process.memory_info().rss / 1024 ** 2)
 
 main()
 
